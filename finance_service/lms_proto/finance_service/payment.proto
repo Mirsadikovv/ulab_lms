@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option go_package = "genproto/payment_service";
+
+package payment_service_go;
+import "google/protobuf/empty.proto";
+
+
+service PaymentService {
+    rpc Create(CreatePayment) returns (GetPayment) {}
+    rpc GetByID(PaymentPrimaryKey) returns (GetPayment) {}
+    rpc GetList(GetListPaymentRequest) returns (GetListPaymentResponse) {}
+    rpc Update(UpdatePayment) returns (GetPayment) {}
+    rpc Delete(PaymentPrimaryKey) returns (google.protobuf.Empty) {}
+    rpc Check(PaymentPrimaryKey) returns (CheckPaymentResp){}
+}
+
+
+
+message PaymentPrimaryKey {
+    string id = 1;
+}
+
+message CreatePayment {
+    string student_id = 1;
+    string course_id = 2;
+    float terminal_paid = 3;
+    float cash_paid = 4;
+    string comment = 5;
+    string date_of_payment = 6;
+}
+
+message GetPayment {
+    string student_id = 1;
+    string course_id = 2;
+    float terminal_paid = 3;
+    float cash_paid = 4;
+    string comment = 5;
+    string date_of_payment = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string id = 9;
+}
+
+
+message UpdatePayment {
+    string student_id = 1;
+    string course_id = 2;
+    float terminal_paid = 3;
+    float cash_paid = 4;
+    string comment = 5;
+    string date_of_payment = 6;
+    string id = 7;
+}
+
+message GetListPaymentRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListPaymentResponse {
+    int64 Count = 1;
+    repeated GetPayment Payments = 2;
+}
+
+
+message CheckPaymentResp {
+    bool check = 1;
+}

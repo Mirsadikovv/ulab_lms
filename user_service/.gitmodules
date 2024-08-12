@@ -1,0 +1,3 @@
+[submodule "lms_proto"]
+	path = lms_proto
+	url = https://github.com/Mirsadikovv/lms_proto.git

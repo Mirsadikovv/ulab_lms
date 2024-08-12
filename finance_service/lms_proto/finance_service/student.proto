@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+option go_package = "genproto/student_service";
+
+package student_service_go;
+import "google/protobuf/empty.proto";
+
+service StudentService {
+    rpc Create(CreateStudent) returns (GetStudent){}
+    rpc GetByID(StudentPrimaryKey) returns (GetStudent){}
+    rpc GetList(GetListStudentRequest) returns (GetListStudentResponse){}
+    rpc Update(UpdateStudent) returns (GetStudent){}
+    rpc Delete(StudentPrimaryKey) returns (google.protobuf.Empty){}
+    rpc Login(StudentLoginRequest) returns (StudentLoginResponse){}
+    rpc Register(StudentRegisterRequest) returns (google.protobuf.Empty){}
+    rpc RegisterConfirm(StudentRegisterConfRequest) returns (StudentLoginResponse){}
+    rpc ChangePassword(StudentChangePassword) returns (StudentChangePasswordResp){}
+}
+
+message StudentPrimaryKey {
+    string id = 1;
+}
+
+message CreateStudent {
+    string group_id = 1;
+    string schedule_id = 2;
+    string fullname =3;
+    string email = 4;
+    string phone = 5;
+    string student_password = 6;
+    string discount_type = 7;
+    float discount_percent = 8;
+    string father_name = 9;
+    string mother_name = 10;
+    string father_phone = 11;
+    string mother_phone = 12;
+    string student_address = 13;
+    string comment = 14;
+    string photo_link = 15;
+}
+
+message GetStudent {
+    string group_id = 1;
+    string schedule_id = 2;
+    string fullname =3;
+    string email = 4;
+    string phone = 5;
+    string discount_type = 6;
+    float discount_percent = 7;
+    string father_name = 8;
+    string mother_name = 9;
+    string father_phone = 10;
+    string mother_phone = 11;
+    string student_address = 12;
+    string comment = 13;
+    string id = 14;
+    string photo_link = 15;
+}
+
+message UpdateStudent {
+    string group_id = 1;
+    string schedule_id = 2;
+    string fullname =3;
+    string email = 4;
+    string phone = 5;
+    string discount_type = 6;
+    float discount_percent = 7;
+    string father_name = 8;
+    string mother_name = 9;
+    string father_phone = 10;
+    string mother_phone = 11;
+    string student_address = 12;
+    string comment = 13;
+    string id = 14;
+    string photo_link = 15;
+}
+
+message GetListStudentRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListStudentResponse {
+    int64 Count = 1;
+    repeated GetStudent Students = 2;
+}
+
+
+message StudentLoginRequest {
+    string user_login = 1;
+    string user_password = 2;
+}
+
+
+message StudentLoginResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+
+message StudentRegisterRequest {
+    string mail = 1;
+}
+
+message StudentRegisterConfRequest {
+    string mail = 1;
+    string otp = 2;
+    repeated CreateStudent Student = 3;
+}
+
+
+message StudentChangePassword {
+    string UserLogin = 1;
+    string OldPassword = 2;
+    string NewPassword  = 3;
+}
+
+message StudentChangePasswordResp {
+    string comment = 1;
+}
+
+message GetStudentByLogin {
+    string group_id = 1;
+    string schedule_id = 2;
+    string fullname =3;
+    string email = 4;
+    string phone = 5;
+    string discount_type = 6;
+    float discount_percent = 7;
+    string father_name = 8;
+    string mother_name = 9;
+    string father_phone = 10;
+    string mother_phone = 11;
+    string student_address = 12;
+    string comment = 13;
+    string id = 14;
+    string user_password = 15;
+    string photo_link = 16;
+}

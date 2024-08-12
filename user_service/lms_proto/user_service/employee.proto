@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+option go_package = "genproto/employee_service";
+
+package employee_service_go;
+import "google/protobuf/empty.proto";
+
+
+service EmployeeService {
+    rpc Create(CreateEmployee) returns (GetEmployee) {}
+    rpc GetByID(EmployeePrimaryKey) returns (GetEmployee) {}
+    rpc GetList(GetListEmployeeRequest) returns (GetListEmployeeResponse) {}
+    rpc Update(UpdateEmployee) returns (GetEmployee) {}
+    rpc Delete(EmployeePrimaryKey) returns (google.protobuf.Empty) {}
+    rpc Check(EmployeePrimaryKey) returns (CheckEmployeeResp){}
+    rpc Login(EmployeeLoginRequest) returns (EmployeeLoginResponse){}
+    rpc Register(EmployeeRegisterRequest) returns (google.protobuf.Empty){}
+    rpc RegisterConfirm(EmployeeRegisterConfRequest) returns (EmployeeLoginResponse){}
+    rpc ChangePassword(EmployeeChangePassword) returns (EmployeeChangePasswordResp){}
+
+}
+
+
+
+message EmployeePrimaryKey {
+    string id = 1;
+}
+
+message CreateEmployee {
+    string branch_id = 1;
+    string role_id = 2;
+    string first_name =3;
+    string second_name = 4;
+    string email = 5;
+    string phone = 6;
+    string birthday = 7;
+    string employee_password = 8;
+    string gender = 9;
+    string salary_type = 10;
+    float salary_percent = 11;
+    string comment = 12;
+}
+
+message GetEmployee {
+    string branch_id = 1;
+    string role_id = 2;
+    string first_name =3;
+    string second_name = 4;
+    string email = 5;
+    string phone = 6;
+    string birthday = 7;
+    string gender = 8;
+    string salary_type = 9;
+    float salary_percent = 10;
+    string comment = 11;
+    string created_at = 12;
+    string updated_at = 13;
+    string id = 14;
+}
+
+message GetEmployeeByLogin {
+    string branch_id = 1;
+    string role_id = 2;
+    string first_name =3;
+    string second_name = 4;
+    string email = 5;
+    string phone = 6;
+    string birthday = 7;
+    string gender = 8;
+    string salary_type = 9;
+    float salary_percent = 10;
+    string comment = 11;
+    string created_at = 12;
+    string updated_at = 13;
+    string id = 14;
+    string employee_password =15;
+}
+
+message UpdateEmployee {
+    string branch_id = 1;
+    string role_id = 2;
+    string first_name =3;
+    string second_name = 4;
+    string birthday = 5;
+    string gender = 6;
+    string salary_type = 7;
+    float salary_percent = 8;
+    string comment = 9;
+    string id = 10;
+}
+
+message GetListEmployeeRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListEmployeeResponse {
+    int64 Count = 1;
+    repeated GetEmployee Employees = 2;
+}
+
+
+message EmployeeLoginRequest {
+    string employee_login = 1;
+    string employee_password = 2;
+}
+
+
+message EmployeeLoginResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+
+message EmployeeRegisterRequest {
+    string mail = 1;
+}
+
+message EmployeeRegisterConfRequest {
+    string mail = 1;
+    string otp = 2;
+    repeated CreateEmployee Employee = 3;
+}
+
+
+message EmployeeChangePassword {
+    string EmployeeLogin = 1;
+    string OldPassword = 2;
+    string NewPassword  = 3;
+}
+
+message EmployeeChangePasswordResp {
+    string comment = 1;
+}
+
+message CheckEmployeeResp {
+    bool check = 1;
+}

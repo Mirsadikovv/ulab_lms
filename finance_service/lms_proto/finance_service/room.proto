@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option go_package = "genproto/room_service";
+
+package room_service_go;
+import "google/protobuf/empty.proto";
+
+
+service CourseService {
+    rpc Create(CreateCourse) returns (GetCourse) {}
+    rpc GetByID(CoursePrimaryKey) returns (GetCourse) {}
+    rpc GetList(GetListCourseRequest) returns (GetListCourseResponse) {}
+    rpc Update(UpdateCourse) returns (GetCourse) {}
+    rpc Delete(CoursePrimaryKey) returns (google.protobuf.Empty) {}
+    rpc Check(CoursePrimaryKey) returns (CheckCourseResp){}
+}
+
+
+
+message CoursePrimaryKey {
+    string id = 1;
+}
+
+message CreateCourse {
+    string branch_id = 1;
+    string room_number = 2;
+    string capacity = 3;
+    float area = 4;
+    float rent_cost = 5;
+    float cost_for_person = 6;
+}
+
+message GetCourse {
+    string branch_id = 1;
+    string room_number = 2;
+    string capacity = 3;
+    float area = 4;
+    float rent_cost = 5;
+    float cost_for_person = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string id = 9;
+}
+
+
+message UpdateCourse {
+    string branch_id = 1;
+    string room_number = 2;
+    string capacity = 3;
+    float area = 4;
+    float rent_cost = 5;
+    float cost_for_person = 6;
+    string id = 7;
+}
+
+message GetListCourseRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListCourseResponse {
+    int64 Count = 1;
+    repeated GetCourse Courses = 2;
+}
+
+
+message CheckCourseResp {
+    bool check = 1;
+}

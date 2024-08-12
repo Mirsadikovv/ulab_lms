@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option go_package = "genproto/schedule_service";
+
+package schedule_service_go;
+import "google/protobuf/empty.proto";
+
+
+service ScheduleService {
+    rpc Create(CreateSchedule) returns (GetSchedule) {}
+    rpc GetByID(SchedulePrimaryKey) returns (GetSchedule) {}
+    rpc GetList(GetListScheduleRequest) returns (GetListScheduleResponse) {}
+    rpc Update(UpdateSchedule) returns (GetSchedule) {}
+    rpc Delete(SchedulePrimaryKey) returns (google.protobuf.Empty) {}
+    rpc Check(SchedulePrimaryKey) returns (CheckScheduleResp){}
+}
+
+
+
+message SchedulePrimaryKey {
+    string id = 1;
+}
+
+message CreateSchedule {
+    string teacher_id = 1;
+    string group_id = 2;
+    string started_date = 3;
+    string finished_date = 4;
+    string started_time = 5;
+    string finished_time = 6;
+}
+
+message GetSchedule {
+    string teacher_id = 1;
+    string group_id = 2;
+    string started_date = 3;
+    string finished_date = 4;
+    string started_time = 5;
+    string finished_time = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string id = 9;
+}
+
+
+message UpdateSchedule {
+    string teacher_id = 1;
+    string group_id = 2;
+    string started_date = 3;
+    string finished_date = 4;
+    string started_time = 5;
+    string finished_time = 6;
+    string id = 7;
+}
+
+message GetListScheduleRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListScheduleResponse {
+    int64 Count = 1;
+    repeated GetSchedule Schedules = 2;
+}
+
+
+message CheckScheduleResp {
+    bool check = 1;
+}

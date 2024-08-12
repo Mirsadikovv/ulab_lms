@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+option go_package = "genproto/free_user_service";
+
+package free_user_service_go;
+import "google/protobuf/empty.proto";
+
+service FreeUserService {
+    rpc Create(CreateFreeUser) returns (GetFreeUser){}
+    rpc GetByID(FreeUserPrimaryKey) returns (GetFreeUser){}
+    rpc GetList(GetListFreeUserRequest) returns (GetListFreeUserResponse){}
+    rpc Update(UpdateFreeUser) returns (GetFreeUser){}
+    rpc Delete(FreeUserPrimaryKey) returns (google.protobuf.Empty){}
+    rpc Login(FreeUserLoginRequest) returns (FreeUserLoginResponse){}
+    rpc Register(FreeUserRegisterRequest) returns (google.protobuf.Empty){}
+    rpc RegisterConfirm(FreeUserRegisterConfRequest) returns (FreeUserLoginResponse){}
+    rpc ChangePassword(FreeUserChangePassword) returns (FreeUserChangePasswordResp){}
+}
+
+message FreeUserPrimaryKey {
+    string id = 1;
+}
+
+message CreateFreeUser {
+    string fullname = 1;
+    string email = 2;
+    string phone =3;
+    string user_password = 4;
+}
+
+message GetFreeUser {
+    string fullname = 1;
+    string email = 2;
+    string phone =3;
+    string id = 4;
+}
+
+message UpdateFreeUser {
+    string id = 1;
+    string fullname = 2;
+    string email = 3;
+    string phone =4;
+    string user_password = 5;
+}
+
+message GetListFreeUserRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListFreeUserResponse {
+    int64 Count = 1;
+    repeated GetFreeUser FreeUsers = 2;
+}
+
+
+message FreeUserLoginRequest {
+    string user_login = 1;
+    string user_password = 2;
+}
+
+
+message FreeUserLoginResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+
+message FreeUserRegisterRequest {
+    string mail = 1;
+}
+
+message FreeUserRegisterConfRequest {
+    string mail = 1;
+    string otp = 2;
+    repeated CreateFreeUser FreeUser = 3;
+}
+
+
+message FreeUserChangePassword {
+    string Login = 1;
+    string OldPassword = 2;
+    string NewPassword  = 3;
+}
+
+message FreeUserChangePasswordResp {
+    string comment = 1;
+}
+
